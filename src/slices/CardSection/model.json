@@ -1,0 +1,34 @@
+{
+  "id": "card_section",
+  "type": "SharedSlice",
+  "name": "CardSection",
+  "description": "CardSection",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "cardimage": {
+          "type": "Image",
+          "config": {
+            "label": "cardImage",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "title",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

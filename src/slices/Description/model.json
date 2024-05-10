@@ -1,0 +1,34 @@
+{
+  "id": "description",
+  "type": "SharedSlice",
+  "name": "Description",
+  "description": "Description",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "description",
+            "placeholder": ""
+          }
+        },
+        "bloglink": {
+          "type": "Link",
+          "config": {
+            "label": "blogLink",
+            "placeholder": "",
+            "select": null
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
