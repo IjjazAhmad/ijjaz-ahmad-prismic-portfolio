@@ -1,0 +1,26 @@
+{
+  "id": "contact_list",
+  "type": "SharedSlice",
+  "name": "ContactList",
+  "description": "ContactList",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "address": {
+          "type": "Text",
+          "config": {
+            "label": "address",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
