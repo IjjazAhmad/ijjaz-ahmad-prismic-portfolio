@@ -4,7 +4,137 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomePageDocumentDataSlicesSlice = HeroSlice;
+type AboutpageDocumentDataSlicesSlice = DescriptionSlice;
+
+/**
+ * Content for aboutpage documents
+ */
+interface AboutpageDocumentData {
+  /**
+   * Slice Zone field in *aboutpage*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: aboutpage.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<AboutpageDocumentDataSlicesSlice> /**
+   * Meta Title field in *aboutpage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: aboutpage.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *aboutpage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: aboutpage.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *aboutpage*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: aboutpage.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * aboutpage document from Prismic
+ *
+ * - **API ID**: `aboutpage`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AboutpageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<AboutpageDocumentData>,
+    "aboutpage",
+    Lang
+  >;
+
+type ContactDocumentDataSlicesSlice = ContactListSlice;
+
+/**
+ * Content for contact documents
+ */
+interface ContactDocumentData {
+  /**
+   * Slice Zone field in *contact*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ContactDocumentDataSlicesSlice> /**
+   * Meta Description field in *contact*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: contact.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *contact*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *contact*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: contact.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * contact document from Prismic
+ *
+ * - **API ID**: `contact`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ContactDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<ContactDocumentData>,
+    "contact",
+    Lang
+  >;
+
+type HomePageDocumentDataSlicesSlice = CardSectionSlice | HeroSlice;
 
 /**
  * Content for home page documents
@@ -69,7 +199,165 @@ export type HomePageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomePageDocument;
+export type AllDocumentTypes =
+  | AboutpageDocument
+  | ContactDocument
+  | HomePageDocument;
+
+/**
+ * Primary content in *CardSection → Primary*
+ */
+export interface CardSectionSliceDefaultPrimary {
+  /**
+   * cardImage field in *CardSection → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: card_section.primary.cardimage
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  cardimage: prismic.ImageField<never>;
+
+  /**
+   * title field in *CardSection → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: card_section.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for CardSection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CardSectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CardSectionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CardSection*
+ */
+type CardSectionSliceVariation = CardSectionSliceDefault;
+
+/**
+ * CardSection Shared Slice
+ *
+ * - **API ID**: `card_section`
+ * - **Description**: CardSection
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CardSectionSlice = prismic.SharedSlice<
+  "card_section",
+  CardSectionSliceVariation
+>;
+
+/**
+ * Primary content in *ContactList → Primary*
+ */
+export interface ContactListSliceDefaultPrimary {
+  /**
+   * address field in *ContactList → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact_list.primary.address
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  address: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for ContactList Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ContactListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ContactListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ContactList*
+ */
+type ContactListSliceVariation = ContactListSliceDefault;
+
+/**
+ * ContactList Shared Slice
+ *
+ * - **API ID**: `contact_list`
+ * - **Description**: ContactList
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ContactListSlice = prismic.SharedSlice<
+  "contact_list",
+  ContactListSliceVariation
+>;
+
+/**
+ * Primary content in *Description → Primary*
+ */
+export interface DescriptionSliceDefaultPrimary {
+  /**
+   * description field in *Description → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: description.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * blogLink field in *Description → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: description.primary.bloglink
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  bloglink: prismic.LinkField;
+}
+
+/**
+ * Default variation for Description Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type DescriptionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<DescriptionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Description*
+ */
+type DescriptionSliceVariation = DescriptionSliceDefault;
+
+/**
+ * Description Shared Slice
+ *
+ * - **API ID**: `description`
+ * - **Description**: Description
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type DescriptionSlice = prismic.SharedSlice<
+  "description",
+  DescriptionSliceVariation
+>;
 
 /**
  * Primary content in *Hero → Primary*
@@ -143,10 +431,28 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AboutpageDocument,
+      AboutpageDocumentData,
+      AboutpageDocumentDataSlicesSlice,
+      ContactDocument,
+      ContactDocumentData,
+      ContactDocumentDataSlicesSlice,
       HomePageDocument,
       HomePageDocumentData,
       HomePageDocumentDataSlicesSlice,
       AllDocumentTypes,
+      CardSectionSlice,
+      CardSectionSliceDefaultPrimary,
+      CardSectionSliceVariation,
+      CardSectionSliceDefault,
+      ContactListSlice,
+      ContactListSliceDefaultPrimary,
+      ContactListSliceVariation,
+      ContactListSliceDefault,
+      DescriptionSlice,
+      DescriptionSliceDefaultPrimary,
+      DescriptionSliceVariation,
+      DescriptionSliceDefault,
       HeroSlice,
       HeroSliceDefaultPrimary,
       HeroSliceVariation,
